@@ -1,6 +1,10 @@
 package lager
 
 import (
+	"bytes"
+	"fmt"
+	"strings"
+
 	"github.com/cockroachdb/errors"
 )
 
@@ -13,7 +17,7 @@ type (
 const (
 	// NoneLevel disable logging.
 	NoneLevel Level = iota
-	
+
 	FatalLevel
 	ErrorLevel
 	WarnLevel
@@ -30,7 +34,7 @@ var (
 		FatalLevel: "fatal",
 		NoneLevel:  "none",
 	}
-	
+
 	stringToLevel = map[string]Level{
 		"debug": DebugLevel,
 		"info":  InfoLevel,
@@ -39,7 +43,7 @@ var (
 		"fatal": FatalLevel,
 		"none":  NoneLevel,
 	}
-	
+
 	errUnmarshalNilLevel = errors.New("can't unmarshal a nil *Level")
 )
 
@@ -48,7 +52,7 @@ func (l Level) String() string {
 	if v, ok := levelToString[l]; ok {
 		return v
 	}
-	
+
 	return fmt.Sprintf("Level(%d)", l)
 }
 
